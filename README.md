@@ -24,10 +24,10 @@ or just add it to your ```composer.json``` file directly and run composer instal
 ## Usage
 
 ```php
-use BrieucThomas\ErgastClient\ErgastClientBuilder;
+use BrieucThomas\ErgastClient\ErgastClientFactory;
 use BrieucThomas\ErgastClient\Request\RequestBuilder;
 
-$ergastClient = ErgastClientBuilder::createErgastClient();
+$ergastClient = ErgastClientFactory::createErgastClient();
 
 $requestBuilder = new RequestBuilder();
 $requestBuilder

@@ -10,8 +10,9 @@
 namespace Tests\BrieucThomas\ErgastClient\Request;
 
 use BrieucThomas\ErgastClient\Request\RequestBuilder;
+use PHPUnit\Framework\TestCase;
 
-class RequestBuilderTest extends \PHPUnit_Framework_TestCase
+class RequestBuilderTest extends TestCase
 {
     public function testGetDefaultUri()
     {

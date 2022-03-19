@@ -10,21 +10,22 @@
 namespace Tests\BrieucThomas\ErgastClient;
 
 use BrieucThomas\ErgastClient\ErgastClient;
+use BrieucThomas\ErgastClient\Exception\BadResponseFormatException;
 use BrieucThomas\ErgastClient\Model\Response as ErgastResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response as HttpResponse;
 use JMS\Serializer\SerializerBuilder;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class ErgastClientTest extends \PHPUnit_Framework_TestCase
+class ErgastClientTest extends TestCase
 {
-    /**
-     * @expectedException \BrieucThomas\ErgastClient\Exception\BadResponseFormatException
-     * @expectedExceptionMessage Supported response formats are application/xml, got application/json.
-     */
     public function testDeserializeUnsupportedFormatResponseThrowsException()
     {
+        $this->expectExceptionMessage('Supported response formats are application/xml, got application/json.');
+        $this->expectException(BadResponseFormatException::class);
+
         $httpResponse = $this->createHttpResponse('{}', 'application/json; charset=utf-8');
         $this->deserializeHttpResponse($httpResponse);
     }
@@ -215,7 +216,7 @@ class ErgastClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Ayrton', $driver->getGivenName());
         $this->assertSame('Senna', $driver->getFamilyName());
         $this->assertInstanceOf('\DateTime', $driver->getBirthDate());
-        $this->assertSame('1960-03-21T00:00:00+0000', $driver->getBirthDate()->format(\DateTime::ISO8601));
+        $this->assertSame('1960-03-21T00:00:00+0100', $driver->getBirthDate()->format(\DateTime::ISO8601));
         $this->assertSame('Brazilian', $driver->getNationality());
         $this->assertNull($driver->getNumber());
         $this->assertSame('http://en.wikipedia.org/wiki/Ayrton_Senna', $driver->getUrl());
@@ -238,7 +239,7 @@ class ErgastClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Lewis', $driver->getGivenName());
         $this->assertSame('Hamilton', $driver->getFamilyName());
         $this->assertInstanceOf('\DateTime', $driver->getBirthDate());
-        $this->assertSame('1985-01-07T00:00:00+0000', $driver->getBirthDate()->format(\DateTime::ISO8601));
+        $this->assertSame('1985-01-07T00:00:00+0100', $driver->getBirthDate()->format(\DateTime::ISO8601));
         $this->assertSame('British', $driver->getNationality());
         $this->assertSame(44, $driver->getNumber());
         $this->assertSame('http://en.wikipedia.org/wiki/Lewis_Hamilton', $driver->getUrl());
@@ -573,8 +574,7 @@ class ErgastClientTest extends \PHPUnit_Framework_TestCase
         $httpClient = $this->createHttpClient($httpResponse);
         $serializer = SerializerBuilder::create()
             ->addMetadataDir($this->getRootDir().'/src/BrieucThomas/ErgastClient/config/serializer/')
-            ->build()
-        ;
+            ->build();
         $ergastClient = new ErgastClient($httpClient, $serializer);
         $httpRequest = $this->createHttpRequest();
 
@@ -585,13 +585,11 @@ class ErgastClientTest extends \PHPUnit_Framework_TestCase
     {
         $httpClient = $this
             ->getMockBuilder('GuzzleHttp\ClientInterface')
-            ->getMock()
-        ;
+            ->getMock();
 
         $httpClient
             ->method('send')
-            ->willReturn($httpResponse)
-        ;
+            ->willReturn($httpResponse);
 
         return $httpClient;
     }
@@ -600,8 +598,7 @@ class ErgastClientTest extends \PHPUnit_Framework_TestCase
     {
         return $this
             ->getMockBuilder('Psr\Http\Message\RequestInterface')
-            ->getMock()
-        ;
+            ->getMock();
     }
 
     private function getRootDir(): string

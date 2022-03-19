@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <serializer>
     <class name="BrieucThomas\ErgastClient\Model\Response" xml-root-name="MRData">
-        <xml-namespace uri="http://ergast.com/mrd/1.4"/>
+        <xml-namespace uri="http://ergast.com/mrd/1.5"/>
         <property name="series"
                   type="string"
                   serialized-name="series"

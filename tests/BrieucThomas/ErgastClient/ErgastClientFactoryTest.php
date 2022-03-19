@@ -10,8 +10,9 @@
 namespace Tests\BrieucThomas\ErgastClient;
 
 use BrieucThomas\ErgastClient\ErgastClientFactory;
+use PHPUnit\Framework\TestCase;
 
-class ErgastClientFactoryTest extends \PHPUnit_Framework_TestCase
+class ErgastClientFactoryTest extends TestCase
 {
     public function testCreateErgastClient()
     {
