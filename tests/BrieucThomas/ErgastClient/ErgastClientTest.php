@@ -88,7 +88,7 @@ class ErgastClientTest extends TestCase
         $ergastResponse = $this->deserializeHttpResponse($httpResponse);
 
         $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Response', $ergastResponse);
-        $this->assertSame('http://ergast.com/api/f1/2012/races', $ergastResponse->getUrl());
+        $this->assertSame('http://ergast.com/api/f1/2022/races', $ergastResponse->getUrl());
         $this->assertSame('f1', $ergastResponse->getSeries());
         $this->assertSame(2, $ergastResponse->getTotal());
         $this->assertSame(30, $ergastResponse->getLimit());
@@ -98,25 +98,66 @@ class ErgastClientTest extends TestCase
 
         $race = $ergastResponse->getRaces()->first();
         $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Race', $race);
-        $this->assertSame(2012, $race->getSeason());
-        $this->assertSame(1, $race->getRound());
+        $this->assertSame(2022, $race->getSeason());
+        $this->assertSame(3, $race->getRound());
         $this->assertSame('Australian Grand Prix', $race->getName());
-        $this->assertSame('2012-03-18', $race->getDate()->format('Y-m-d'));
-        $this->assertSame('06:00:00Z', $race->getTime()->format('H:i:sT'));
-        $this->assertSame('2012-03-18T06:00:00+0000', $race->getStartDate()->format(\DateTime::ISO8601));
-        $this->assertSame('http://en.wikipedia.org/wiki/2012_Australian_Grand_Prix', $race->getUrl());
+        $this->assertSame('2022-04-10', $race->getDate()->format('Y-m-d'));
+        $this->assertSame('05:00:00Z', $race->getTime()->format('H:i:sT'));
+        $this->assertSame('2022-04-10T05:00:00+0000', $race->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('http://en.wikipedia.org/wiki/2022_Australian_Grand_Prix', $race->getUrl());
         $this->assertSame('albert_park', $race->getCircuit()->getId());
+        $this->assertSame('2022-04-08T03:00:00+0000', $race->getFirstPractice()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('2022-04-08T06:00:00+0000', $race->getSecondPractice()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('2022-04-09T03:00:00+0000', $race->getThirdPractice()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('2022-04-09T06:00:00+0000', $race->getQualifyingStart()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertNull($race->getSprintStart());
 
         $race = $ergastResponse->getRaces()->next();
         $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Race', $race);
-        $this->assertSame(2012, $race->getSeason());
-        $this->assertSame(2, $race->getRound());
-        $this->assertSame('Brazilian Grand Prix', $race->getName());
-        $this->assertSame('2012-11-25', $race->getDate()->format('Y-m-d'));
+        $this->assertSame(2022, $race->getSeason());
+        $this->assertSame(4, $race->getRound());
+        $this->assertSame('Emilia Romagna Grand Prix', $race->getName());
+        $this->assertSame('2022-04-24', $race->getDate()->format('Y-m-d'));
         $this->assertNull($race->getTime());
-        $this->assertSame('2012-11-25T00:00:00+0000', $race->getStartDate()->format(\DateTime::ISO8601));
-        $this->assertSame('http://en.wikipedia.org/wiki/2012_Brazilian_Grand_Prix', $race->getUrl());
-        $this->assertSame('interlagos', $race->getCircuit()->getId());
+        $this->assertSame('2022-04-24T00:00:00+0000', $race->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('http://en.wikipedia.org/wiki/2022_Emilia_Romagna_Grand_Prix', $race->getUrl());
+        $this->assertSame('imola', $race->getCircuit()->getId());
+        $this->assertSame('2022-04-22T12:00:00+0000', $race->getFirstPractice()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('2022-04-23T11:00:00+0000', $race->getSecondPractice()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertNull($race->getThirdPractice());
+        $this->assertSame('2022-04-22T15:00:00+0000', $race->getQualifyingStart()->getStartDate()->format(\DateTime::ISO8601));
+        $this->assertSame('2022-04-23T14:00:00+0000', $race->getSprintStart()->getStartDate()->format(\DateTime::ISO8601));
+    }
+
+    public function testDeserializeSprintResults() {
+        $httpResponse = $this->createHttpResponseFromFile('sprints.xml', 'application/xml; charset=utf-8');
+        $ergastResponse = $this->deserializeHttpResponse($httpResponse);
+
+        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Response', $ergastResponse);
+        $this->assertSame('http://ergast.com/api/f1/2021/sprint', $ergastResponse->getUrl());
+        $this->assertSame('f1', $ergastResponse->getSeries());
+        $this->assertSame(1, $ergastResponse->getTotal());
+        $this->assertSame(30, $ergastResponse->getLimit());
+        $this->assertSame(0, $ergastResponse->getOffset());
+        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $ergastResponse->getRaces());
+        $this->assertCount(1, $ergastResponse->getRaces());
+        $this->assertCount(1, $ergastResponse->getRaces()->first()->getSprintResults());
+
+        $sprint = $ergastResponse->getRaces()->first()->getSprintResults()->first();
+        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\SprintResult', $sprint);
+        $this->assertSame('max_verstappen', $sprint->getDriver()->getId());
+        $this->assertSame('red_bull', $sprint->getConstructor()->getId());
+        $this->assertSame(1, $sprint->getPosition());
+        $this->assertSame('1', $sprint->getPositionText());
+        $this->assertSame(3.0, $sprint->getPoints());
+        $this->assertSame(2, $sprint->getGrid());
+        $this->assertSame(17, $sprint->getLaps());
+        $this->assertSame(33, $sprint->getNumber());
+        $this->assertSame('Finished', $sprint->getStatus()->getName());
+        $this->assertSame('25:38.426', $sprint->getTime()->getValue());
+        $this->assertSame(1538426, $sprint->getTime()->getMillis());
+        $this->assertSame('1:30.013', $sprint->getFastestLap()->getTime());
+        $this->assertSame(14, $sprint->getFastestLap()->getLap());
     }
 
     public function testDeserializeResults()
@@ -140,7 +181,7 @@ class ErgastClientTest extends TestCase
         $this->assertCount(1, $race->getResults());
 
         $result = $race->getResults()->first();
-        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Result', $result);
+        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\RaceResult', $result);
         $this->assertSame('massa', $result->getDriver()->getId());
         $this->assertSame('ferrari', $result->getConstructor()->getId());
         $this->assertSame(1, $result->getPosition());
@@ -177,14 +218,14 @@ class ErgastClientTest extends TestCase
         $race = $ergastResponse->getRaces()->first();
         $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Race', $race);
         $this->assertSame('Turkish Grand Prix', $race->getName());
-        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $race->getQualifying());
-        $this->assertCount(1, $race->getQualifying());
+        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $race->getQualifyingResults());
+        $this->assertCount(1, $race->getQualifyingResults());
 
         $this->assertSame('Turkish Grand Prix', $race->getName());
-        $this->assertCount(1, $race->getQualifying());
+        $this->assertCount(1, $race->getQualifyingResults());
 
-        $qualifying = $race->getQualifying()->first();
-        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\Qualifying', $qualifying);
+        $qualifying = $race->getQualifyingResults()->first();
+        $this->assertInstanceOf('BrieucThomas\ErgastClient\Model\QualifyingResult', $qualifying);
 
         $this->assertSame('massa', $qualifying->getDriver()->getId());
         $this->assertSame('ferrari', $qualifying->getConstructor()->getId());

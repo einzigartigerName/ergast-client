@@ -255,6 +255,13 @@ class RequestBuilder
         return $this;
     }
 
+    public function bySprints(int $position): self
+    {
+        $this->criteria['sprints'] = $position;
+
+        return $this;
+    }
+
     public function byFinishingStatus(string $status): self
     {
         if ('status' === $this->select) {

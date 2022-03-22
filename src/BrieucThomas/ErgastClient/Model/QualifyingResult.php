@@ -12,7 +12,7 @@ namespace BrieucThomas\ErgastClient\Model;
 /**
  * @author Brieuc Thomas <tbrieuc@gmail.com>
  */
-class Qualifying
+class QualifyingResult
 {
     private $driver;
     private $constructor;

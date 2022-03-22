@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<serializer>
+    <class name="BrieucThomas\ErgastClient\Model\QualifyingStart" xml-root-name="Qualifying">
+        <xml-namespace uri="http://ergast.com/mrd/1.5"/>
+        <property name="date"
+                  type="DateTime&lt;'Y-m-d|'&gt;"
+                  serialized-name="Date"
+        >
+        </property>
+        <property name="time"
+                  type="DateTime&lt;'H:i:sT|'&gt;"
+                  serialized-name="Time"
+        >
+        </property>
+    </class>
+</serializer>

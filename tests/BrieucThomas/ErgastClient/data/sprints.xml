@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/schemas/mrd-1.5.xsl"?>
+<MRData xmlns="http://ergast.com/mrd/1.5"  series="f1" url="http://ergast.com/api/f1/2021/sprint" limit="30" offset="0" total="1">>
+    <RaceTable season="2021" round="10">
+        <Race season="2021" round="10" url="http://example/page/race">
+            <RaceName>British Grand Prix</RaceName>
+            <Circuit circuitId="silverstone" url="http://example/page/circuit">
+                <CircuitName>Silverstone Circuit</CircuitName>
+                <Location lat="52.0786" long="-1.01694">
+                    <Locality>Silverstone</Locality>
+                    <Country>UK</Country>
+                </Location>
+            </Circuit>
+            <Date>2021-07-18</Date>
+            <Time>14:00:00Z</Time>
+            <SprintList>
+                <SprintResult number="33" position="1" positionText="1" points="3">
+                    <Driver driverId="max_verstappen" code="VER" url="http://example/page/ver">
+                        <PermanentNumber>33</PermanentNumber>
+                        <GivenName>Max</GivenName>
+                        <FamilyName>Verstappen</FamilyName>
+                        <DateOfBirth>1997-09-30</DateOfBirth>
+                        <DriverNationality>Dutch</DriverNationality>
+                    </Driver>
+                    <Constructor constructorId="red_bull" url="http://example/page/redbull">
+                        <Name>Red Bull</Name>
+                        <Nationality> Austrian</Nationality>
+                    </Constructor>
+                    <Grid>2</Grid>
+                    <Laps>17</Laps>
+                    <Status statusId="1">Finished</Status>
+                    <Time millis="1538426">25:38.426</Time>
+                    <FastestLap lap="14">
+                        <Time>1:30.013</Time>
+                    </FastestLap>
+                </SprintResult>
+            </SprintList>
+        </Race>
+    </RaceTable>
+</MRData>

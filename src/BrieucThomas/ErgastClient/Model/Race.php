@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Race
 {
+
     private $season;
     private $round;
     private $name;
@@ -23,7 +24,13 @@ class Race
     private $date;
     private $time;
     private $url;
-    private $qualifying;
+    private $firstPractice;
+    private $secondPractice;
+    private $thirdPractice;
+    private $qualifyingStart;
+    private $sprintRaceStart;
+    private $qualifyingResults;
+    private $sprintResults;
     private $results;
     private $laps;
     private $pitStops;
@@ -88,9 +95,9 @@ class Race
         return $this->url;
     }
 
-    public function getQualifying(): ArrayCollection
+    public function getQualifyingResults(): ArrayCollection
     {
-        return $this->qualifying;
+        return $this->qualifyingResults;
     }
 
     public function getResults(): ArrayCollection
@@ -107,4 +114,35 @@ class Race
     {
         return $this->pitStops;
     }
+
+    public function getFirstPractice(): FirstPractice
+    {
+        return $this->firstPractice;
+    }
+
+    public function getSecondPractice(): SecondPractice
+    {
+        return $this->secondPractice;
+    }
+
+    public function getThirdPractice(): ?ThirdPractice
+    {
+        return $this->thirdPractice;
+    }
+
+    public function getQualifyingStart(): QualifyingStart
+    {
+        return $this->qualifyingStart;
+    }
+
+    public function getSprintStart(): ?SprintStart
+    {
+        return $this->sprintRaceStart;
+    }
+
+    public function getSprintResults(): ArrayCollection
+    {
+        return $this->sprintResults;
+    }
+
 }

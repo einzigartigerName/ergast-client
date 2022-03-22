@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <serializer>
-    <class name="BrieucThomas\ErgastClient\Model\Qualifying" xml-root-name="QualifyingResult">
+    <class name="BrieucThomas\ErgastClient\Model\QualifyingResult" xml-root-name="QualifyingResult">
         <property name="driver"
                   type="BrieucThomas\ErgastClient\Model\Driver"
                   serialized-name="Driver"

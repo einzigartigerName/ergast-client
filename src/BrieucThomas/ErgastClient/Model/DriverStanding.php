@@ -24,7 +24,7 @@ class DriverStanding extends AbstractStanding
         return $this->driver;
     }
 
-    public function getConstructor(): Constructor
+    public function getConstructor(): ?Constructor
     {
         return ($this->constructors instanceof ArrayCollection) ? $this->constructors->first() : null;
     }

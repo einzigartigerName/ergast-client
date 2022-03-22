@@ -40,14 +40,20 @@
                   xml-attribute="true"
         >
         </property>
-        <property name="qualifying"
-                  type="ArrayCollection&lt;BrieucThomas\ErgastClient\Model\Qualifying&gt;"
+        <property name="qualifyingResults"
+                  type="ArrayCollection&lt;BrieucThomas\ErgastClient\Model\QualifyingResult&gt;"
                   serialized-name="QualifyingList"
         >
             <xml-list entry-name="QualifyingResult" />
         </property>
+        <property name="sprintResults"
+                  type="ArrayCollection&lt;BrieucThomas\ErgastClient\Model\SprintResult&gt;"
+                  serialized-name="SprintList"
+        >
+            <xml-list entry-name="SprintResult" />
+        </property>
         <property name="results"
-                  type="ArrayCollection&lt;BrieucThomas\ErgastClient\Model\Result&gt;"
+                  type="ArrayCollection&lt;BrieucThomas\ErgastClient\Model\RaceResult&gt;"
                   serialized-name="ResultsList"
         >
             <xml-list entry-name="Result" />
@@ -63,6 +69,32 @@
                   serialized-name="PitStopsList"
         >
             <xml-list entry-name="PitStop" />
+        </property>
+
+        <property name="firstPractice"
+                  type="BrieucThomas\ErgastClient\Model\FirstPractice"
+                  serialized-name="FirstPractice"
+        >
+        </property>
+        <property name="secondPractice"
+                  type="BrieucThomas\ErgastClient\Model\SecondPractice"
+                  serialized-name="SecondPractice"
+        >
+        </property>
+        <property name="thirdPractice"
+                  type="BrieucThomas\ErgastClient\Model\ThirdPractice"
+                  serialized-name="ThirdPractice"
+        >
+        </property>
+        <property name="qualifyingStart"
+                  type="BrieucThomas\ErgastClient\Model\QualifyingStart"
+                  serialized-name="Qualifying"
+        >
+        </property>
+        <property name="sprintRaceStart"
+                  type="BrieucThomas\ErgastClient\Model\SprintStart"
+                  serialized-name="Sprint"
+        >
         </property>
     </class>
 </serializer>
