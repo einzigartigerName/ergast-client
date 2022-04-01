@@ -9,6 +9,7 @@
 
 namespace BrieucThomas\ErgastClient\Model;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -60,25 +61,25 @@ class Race
         return $this->circuit;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getTime()
+    public function getTime(): ?DateTime
     {
         return $this->time;
     }
 
-    public function getStartDate(): \DateTime
+    public function getStartDate(): DateTime
     {
         $startDate = clone $this->date;
         $time = $this->getTime();
 
-        if ($time instanceof \DateTime) {
+        if ($time instanceof DateTime) {
             $startDate->setTime($time->format('H'), $time->format('i'), $time->format('s'));
         }
 
@@ -115,12 +116,12 @@ class Race
         return $this->pitStops;
     }
 
-    public function getFirstPractice(): FirstPractice
+    public function getFirstPractice(): ?FirstPractice
     {
         return $this->firstPractice;
     }
 
-    public function getSecondPractice(): SecondPractice
+    public function getSecondPractice(): ?SecondPractice
     {
         return $this->secondPractice;
     }
@@ -130,7 +131,7 @@ class Race
         return $this->thirdPractice;
     }
 
-    public function getQualifyingStart(): QualifyingStart
+    public function getQualifyingStart(): ?QualifyingStart
     {
         return $this->qualifyingStart;
     }
