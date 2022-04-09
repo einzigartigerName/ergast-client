@@ -115,6 +115,13 @@ class RequestBuilder
         return $this;
     }
 
+    public function findSprint(): self
+    {
+        $this->select = 'sprint';
+
+        return $this;
+    }
+
     public function findDriverStandings(): self
     {
         $this->select = 'driverStandings';
